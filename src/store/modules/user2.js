@@ -1,8 +1,6 @@
-import fa from "element-ui/src/locale/lang/fa";
 import Vue from "vue";
 import Vuex from "vuex";
 import { getUserInfo } from "@/utils/auth";
-import el from "element-ui/src/locale/lang/el";
 
 Vue.use(Vuex);
 

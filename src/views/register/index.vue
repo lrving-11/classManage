@@ -70,7 +70,7 @@
         </span>
       </el-form-item>
 
-      <!--            确认密码-->
+      <!-- 确认密码-->
       <el-form-item prop="passwordCheck">
         <span class="svg-container">
           <svg-icon icon-class="password" />
@@ -99,11 +99,7 @@
         @click.native.prevent="handleRegister"
         >注册</el-button
       >
-
-      <!--             提示    -->
       <div class="tips">
-        <!--                <span style="margin-right: 20px;">username: admin</span>-->
-        <!--                <span> password: any</span>-->
       </div>
       <router-link to="/login" tag="p" style="color: #ffffff"
         ><a>已有账号？登录！</a></router-link
@@ -115,10 +111,12 @@
 <script>
 import { userRegister } from "@/api/login&register";
 import DoubleCreation from "@/json/DoubleCreation.json";
-import { number } from "@/api/mainpage";
-import { setUserId } from "@/utils/auth";
+// import { setUserId } from "@/utils/auth";
 
 export default {
+  // created() {
+  //   console.log(setUserId,"uesrid");
+  // },
   data() {
     const validateUserid = (rule, value, callback) => {
       console.log("userid", value);
@@ -214,16 +212,16 @@ export default {
       },
       loading: false,
       passwordType: "password",
-      redirect: undefined,
+      // redirect: undefined,
     };
   },
   watch: {
-    $route: {
-      handler: function (route) {
-        this.redirect = route.query && route.query.redirect;
-      },
-      immediate: true,
-    },
+    // $route: {
+    //   handler: function (route) {
+    //     this.redirect = route.query && route.query.redirect;
+    //   },
+    //   immediate: true,
+    // },
   },
   methods: {
     showPwd() {
@@ -232,15 +230,14 @@ export default {
       } else {
         this.passwordType = "password";
       }
-      // this.$nextTick(() => {
-      //   this.$refs.password.focus();
-      // });
+      this.$nextTick(() => {
+        this.$refs.password.focus();
+      });
     },
     handleRegister() {
       this.$refs.registerForm.validate((valid) => {
         if (valid) {
           this.loading = true;
-
           userRegister(this.registerForm)
             .then((res) => {
               console.log("注册res", res);
@@ -249,43 +246,15 @@ export default {
                 setTimeout(() => {
                   this.$router.push("/login");
                 }, 1000);
-                setUserId(this.registerForm.userInfoId);
               } else {
                 this.$message.error(`${res.msg}`);
               }
-
               this.loading = false;
             })
-
             .catch((err) => {
               console.log(err);
               this.loading = false;
             });
-
-          // axios
-          //   .post("http://116.62.48.128:8008" + "/api/register/userRegister", {
-          //     username: this.registerForm.username,
-          //     password: this.registerForm.password,
-          //     doubleCreationClass: this.registerForm.doubleCreationClass,
-          //   })
-          //   .then((res) => {
-          //     console.log(res.data);
-
-          //     if (res.data.code === 200) {
-          //       this.$message.success("注册成功!");
-          //       setTimeout(() => {
-          //         this.$router.push("/login");
-          //       }, 1000);
-          //     } else {
-          //       this.$message.error(`${res.data.msg}`);
-          //     }
-
-          //     this.loading = false;
-          //   })
-          //   .catch((err) => {
-          //     console.log(err);
-          //     this.loading = false;
-          //   });
         } else {
           this.$message.error("注册失败,请检查用户名,密码和班级！");
           return false;

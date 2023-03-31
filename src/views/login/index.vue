@@ -52,7 +52,7 @@
       <el-form-item style="border: 0; background-color: transparent">
         <el-radio-group v-model="isAdminLogin" size="small">
           <el-radio-button label="0">普通用户</el-radio-button>
-          <el-radio-button label="1">公司</el-radio-button>
+          <el-radio-button label="1">管理员</el-radio-button>
           <el-radio-button label="2">超级管理员</el-radio-button>
         </el-radio-group>
       </el-form-item>
@@ -72,10 +72,6 @@
 </template>
 
 <script>
-import { validUsername } from "@/utils/validate";
-import store from "@/store/modules/user2";
-import { setAdminUserName } from "@/utils/auth.js";
-
 export default {
   name: "Login",
   data() {
@@ -86,15 +82,10 @@ export default {
         callback();
       }
     };
-    // const validatePassword = (rule, value, callback) => {
-    //   if (value.length < 6) {
-    //     callback(new Error("密码长度不小于6位"));
-    //   } else {
-    //     callback();
-    //   }
-    // };
     return {
-      // 是否是管理员登录，默认为普通登录(0)
+      // 是否是管理员登录，默认为普通登录 0
+      // 管理员 1
+      // 超级管理员 2
       isAdminLogin: 0,
       loginForm: {
         username: "superAdmin",
@@ -123,16 +114,20 @@ export default {
       },
       loading: false,
       passwordType: "password",
-      redirect: undefined,
+      // redirect: undefined,
     };
   },
   watch: {
-    $route: {
-      handler: function (route) {
-        this.redirect = route.query && route.query.redirect;
-      },
-      immediate: true,
-    },
+    //   $route(to,from){
+    //   console.log("路由跳转",o.path);
+    // },
+    // $route: {
+    //   handler: function (route) {
+    //     this.redirect = route.query && route.query.redirect;
+    //     console.log('redirect',this.redirect);
+    //   },
+    //   immediate: true,
+    // },
   },
   methods: {
     showPwd() {
@@ -143,6 +138,7 @@ export default {
       }
       this.$nextTick(() => {
         this.$refs.password.focus();
+        console.log("密码聚焦");
       });
     },
     handleLogin() {
@@ -153,17 +149,11 @@ export default {
             this.loading = true;
             this.$store
               .dispatch("user/login", this.loginForm)
-              .then((res) => {
-                // this.$router.dynamicRouter();
-                //    更新路由
-                console.log("aa", res.data);
-                // this.$store.state.user.adminUserName = res.data.id;
-                // setAdminUserName(res.data.id);
+              .then(() => {
+                // 动态更新路由
                 this.$router.dynamicRouter();
-                // 跳转到之前跳转的页面或主页
-                this.$router.push({
-                  path: this.redirect || "/",
-                });
+                // 跳转到主页
+                this.$router.push({ path: "/" });
                 this.loading = false;
               })
               .catch((err) => {
@@ -176,66 +166,45 @@ export default {
             this.loading = true;
             this.$store
               .dispatch("user/adminLogin", this.loginForm)
-              .then((res) => {
-                // store.commit(
-                //     "setAdminUserName",
-                //     res.data.username
-                // );
-                // this.$store.state.user.adminUserName =
-                //   res.data.doubleCreationClass;
-                // setAdminUserName(res.data.doubleCreationClass);
+              .then(() => {
+                // 动态更新路由
                 this.$router.dynamicRouter();
-                // console.log(this.redirect);
-                this.$router.push({
-                  path: this.redirect || "/",
-                });
+                // 跳转到主页
+                this.$router.push({ path: "/" });
                 this.loading = false;
               })
               .catch((err) => {
                 console.log(err);
                 this.loading = false;
               });
-            //   超级管理员登录
+            //  超级管理员登录
           } else if (this.isAdminLogin.toString() === "2") {
-            console.log("超级管理员登录");
-
             this.loading = true;
             this.$store
               .dispatch("user/superAdminLogin", this.loginForm)
-              .then((res) => {
-                //   console.log("aa"+res.data.username);//undefined
-                // this.$store.state.user.adminUserName = res.data.adminId;
-                // console.log("登录用户名",res.data.username);
-                // setAdminUserName(res.data.adminId);
-                // console.log(this.$store.state.user);
+              .then(() => {
+                // 动态更新路由
                 this.$router.dynamicRouter();
-                this.$router.push({
-                  path: this.redirect || "/",
-                });
+                // 跳转到主页
+                this.$router.push({ path: "/" });
                 this.loading = false;
               })
               .catch((err) => {
                 console.log(err);
                 this.loading = false;
               });
-
             console.log(
-              this.$store.state.user.doubleCreationClassName,
-              "这超级用户"
+              "超级用户登录",
+              this.$store.state.user.doubleCreationClassName
             );
           } else {
             this.$message.error(
-              "出错，请联系超级管理员修复\n" + "出错 'this.isAdminLogin'"
+              "出错，请联系超级管理员修复\n"
             );
           }
         }
       });
     },
-  },
-  mounted() {
-    // console.log(store.getters.getIsAdmin);
-    // store.commit("SET_ISADMIN", true);
-    // console.log(store.getters.getIsAdmin);
   },
 };
 </script>
@@ -253,7 +222,6 @@ $cursor: #fff;
     color: $cursor;
   }
 }
-
 /* reset element-ui css */
 .login-container {
   .el-input {

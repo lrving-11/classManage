@@ -18,24 +18,6 @@
       >
         搜索
       </el-button>
-
-      <!-- <el-button
-                class="filter-item"
-                type="primary"
-                icon="el-icon-download"
-                @click="handleDownload"
-                style="margin-left: auto"
-            >
-                导出
-            </el-button>
-            <el-button
-                class="filter-item"
-                type="primary"
-                icon="el-icon-upload2"
-                @click="uploadExcelTurn = !uploadExcelTurn"
-            >
-                {{ uploadExcelTurn === true ? "关闭面板" : "导入" }}
-            </el-button> -->
       <el-upload
         class="upload-demo"
         v-show="uploadExcelTurn"
@@ -255,7 +237,7 @@ export default {
         this.className
       )
         .then((res) => {
-          console.log(res.data,"列表信息");
+          console.log(res.data, "列表信息");
           // 所有数据都保存在list中
           this.list = res.data;
           // 分页显示

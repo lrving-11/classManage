@@ -18,24 +18,6 @@
       >
         搜索
       </el-button>
-
-      <!-- <el-button
-                class="filter-item"
-                type="primary"
-                icon="el-icon-download"
-                @click="handleDownload"
-                style="margin-left: auto"
-            >
-                导出
-            </el-button>
-            <el-button
-                class="filter-item"
-                type="primary"
-                icon="el-icon-upload2"
-                @click="uploadExcelTurn = !uploadExcelTurn"
-            >
-                {{ uploadExcelTurn === true ? "关闭面板" : "导入" }}
-            </el-button> -->
       <el-upload
         class="upload-demo"
         v-show="uploadExcelTurn"

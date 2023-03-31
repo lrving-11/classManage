@@ -72,30 +72,15 @@
           </el-card>
         </el-col>
       </el-row>
-
-      <!--            <el-row style="margin: 1.5em 0;">-->
-      <!--                <el-col :span="12">-->
-      <!--                    <div id="certifiedStudent" style="height: 400px;"></div>-->
-      <!--                </el-col>-->
-      <!--                <el-col :span="12">-->
-      <!--                    <div id="certifiedCompany" style="height: 400px;"></div>-->
-      <!--                </el-col>-->
-      <!--            </el-row>-->
     </el-card>
   </div>
 </template>
 
 <script>
-// import lineChart from "./components/LineChart";
 import echarts from "@/components/echarts/echarts";
 import { mapGetters } from "vuex";
-// import {
-//     getRefuseReason,
-//     getSchoolRefuseReason,
-// } from "@/api/double_creation_class/audit";
 import { getDoubleCreationClass, getUserCollege } from "@/utils/auth";
 import { number } from "@/api/mainpage";
-
 export default {
   name: "Dashboard",
   components: {},
@@ -117,7 +102,6 @@ export default {
         // 双创班毕业生总数
         classGraduate: 0,
       },
-
       refuseReason: "",
       refuseReasonEmpty: true,
 
@@ -126,7 +110,6 @@ export default {
     };
   },
   created() {
-    // 获取number
     this.getNum();
   },
   methods: {

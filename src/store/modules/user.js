@@ -16,10 +16,6 @@ import {
 import router, { resetRouter } from "@/router";
 import user2 from "@/store/modules/user2";
 
-import store from "@/store";
-import { push } from "echarts/src/component/dataZoom/history";
-import fa from "element-ui/src/locale/lang/fa";
-
 const getDefaultState = () => {
   return {
     token: getToken(),
@@ -28,6 +24,7 @@ const getDefaultState = () => {
       "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
     doubleCreationClassName: getDoubleCreationClass(),
     userCollege: getUserCollege(),
+    // 管理/超级管理名
     adminUserName: getAdminUserName(),
   };
 };
@@ -41,7 +38,6 @@ const mutations = {
   SET_TOKEN: (state, token) => {
     state.token = token;
   },
-  // 用户名
   SET_NAME: (state, name) => {
     state.name = name;
   },
@@ -56,43 +52,43 @@ const mutations = {
 const actions = {
   // user login(普通用户登录)
   login({ commit }, userInfo) {
-    console.log("开始登陆");
     const { username, password } = userInfo;
     return new Promise((resolve, reject) => {
       login(password, username.trim())
         .then((res) => {
-          console.log("res", res.data);
+          let userData=res.data;
+          console.log("普通用户登录",userData);
           // 关闭管理员权限,动态路由
           user2.commit("SET_ISSUPERADMIN", false);
           user2.commit("SET_ISADMIN", false);
           // 更新路由
           router.dynamicRouter();
-          // setAdminUserName(res.data.doubleCreationClass);
+          // setAdminUserName(userData.doubleCreationClass);
           // 为user2添加name属性
-          // user2.commit("SET_NAME", res.data.title);
+          // user2.commit("SET_NAME", userData.title);
           // 为user2添加role属性
-          // user2.commit("SET_ROLE", res.data.role);
+          // user2.commit("SET_ROLE", userData.role);
           // console.log(user2.getters.getRole);
           // console.log(res);
           // const { data } = res;
 
-          commit("SET_TOKEN", res.data.userInfoToken);
-          commit("SET_NAME", res.data.userInfoUserName);
+          commit("SET_TOKEN", userData.userInfoToken);
+          commit("SET_NAME", userData.userInfoUserName);
           commit(
             "SET_AVATAR",
             "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif"
           );
-          setToken(res.data.userInfoToken);
+          setToken(userData.userInfoToken);
 
           // 将数据存储在cookie中
           setUserInfo(
-            res.data.userInfoUserName,
-            res.data.userInfoIsAdmin,
-            res.data.userInfoIsSuperAdmin,
-            // res.data.title,
-            // res.data.role,
-            res.data.userInfoCreatedClass,
-            res.data.userInfoCollege
+            userData.userInfoUserName,
+            userData.userInfoIsAdmin,
+            userData.userInfoIsSuperAdmin,
+            // userData.title,
+            // userData.role,
+            userData.userInfoCreatedClass,
+            userData.userInfoCollege
           );
           resolve(res);
         })
@@ -109,6 +105,9 @@ const actions = {
     return new Promise((resolve, reject) => {
       adminLogin(password, username.trim())
         .then((res) => {
+          let userData=res.data;
+          console.log("管理登录",userData);
+
           // 给与管理员权限
           console.log("管理员res",res);
           user2.commit("SET_ISADMIN", true);
@@ -116,27 +115,27 @@ const actions = {
           // 更新路由
           router.dynamicRouter();
           //
-          setAdminUserName(res.data.adminUserName);
+          setAdminUserName(userData.adminUserName);
 
-          commit("set_adminUserName", res.data.adminUserName);
-          commit("SET_TOKEN", res.data.adminToken);
-          commit("SET_NAME", res.data.adminName);
+          commit("set_adminUserName", userData.adminUserName);
+          commit("SET_TOKEN", userData.adminToken);
+          commit("SET_NAME", userData.adminName);
           commit(
             "SET_AVATAR",
             "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif"
           );
-          setToken(res.data.adminToken);
+          setToken(userData.adminToken);
           // console.log("userinfo");
           // 将数据存储在cookie中
           setUserInfo(
-            // res.data.id, //?????
-            res.data.adminUserName,
-            res.data.adminIsAdmin,
-            res.data.adminIsSuperAdmin,
-            // res.data.title,
-            // res.data.role,
-            res.data.adminCreatedClass,
-            res.data.adminCollege
+            // userData.id, //?????
+            userData.adminUserName,
+            userData.adminIsAdmin,
+            userData.adminIsSuperAdmin,
+            // userData.title,
+            // userData.role,
+            userData.adminCreatedClass,
+            userData.adminCollege
           );
           // console.log(getDoubleCreationClass());
           // console.log(getUserCollege());
@@ -155,41 +154,36 @@ const actions = {
     const { username, password } = userInfo;
     // console.log(username,password,"username   password");
     return new Promise((resolve, reject) => {
-      
       superAdminLogin(password, username)
         .then((res) => {
+          let userData=res.data;
           // 给与管理员权限
-          console.log(res,"超管登录res");
-          if (res.data.adminIsSuperAdmin === true) {
+          console.log("超管登录",userData);
+          if (userData.adminIsSuperAdmin === true) {
             user2.commit("SET_ISSUPERADMIN", true);
             user2.commit("SET_ISADMIN", true);
           }
           // 更新路由
-          router.dynamicRouter();
+          // router.dynamicRouter();
           //
           setAdminUserName("superAdmin");
-
-          commit("set_adminUserName", res.data.adminUserName);
-          commit("SET_TOKEN", res.data.adminToken);
-          commit("SET_NAME", res.data.adminUserName);
+          commit("set_adminUserName", userData.adminUserName);
+          commit("SET_TOKEN", userData.adminToken);
+          commit("SET_NAME", userData.adminUserName);
           commit(
             "SET_AVATAR",
             "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif"
           );
-          setToken(res.data.adminToken);
-          // console.log("userinfo");
+          // 存token
+          setToken(userData.adminToken);
           // 将数据存储在cookie中
           setUserInfo(
-            // res.data.adminId,
             "superAdmin",
-            res.data.adminIsAdmin,
-            res.data.adminIsSuperAdmin,
-            // res.data.title,
-            // res.data.role,
-            res.data.userInfoCreatedClass,
-            res.data.userInfoCollege
+            userData.adminIsAdmin,
+            userData.adminIsSuperAdmin,
+            userData.userInfoCreatedClass,
+            userData.userInfoCollege
           );
-
           // 双创班设置为超级管理员 (放到底部，避免被res覆盖)
           setDoubleCreationClass("superAdmin");
           setUserCollege("superAdmin");
