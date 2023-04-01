@@ -1,11 +1,9 @@
 <template>
   <div>
     <!-- <h2>就业信息</h2> -->
-
     <el-button type="primary" @click="addInfo" style="margin-left: 10px"
       >添加信息</el-button
     >
-
     <!-- 表格展示 -->
     <el-table
       :data="tableData"
@@ -246,7 +244,7 @@ import {
   unitNatureOptions,
   tableListemp,
 } from "@/assets/js/employmentOptions";
-import { getUserInfo, getUserId } from "@/utils/auth";
+import { getUserInfo } from "@/utils/auth";
 import {
   addEmployment,
   findEmployment,
@@ -260,7 +258,6 @@ export default {
     this.unitNatureOptionsFun();
     this.findEmploymentInfo();
     this.getTable();
-    console.log(getUserId(), "ididd");
   },
 
   data() {
@@ -355,7 +352,7 @@ export default {
           // console.log(this.total, "total");
           // 分页
           let tableData = this.list.filter((item, index) => {
-            console.log(item.empCounterpart, "11");
+            // console.log(item.empCounterpart, "11");
             if (item.empCounterpart == true) {
               item.empCounterpart = "是";
             } else {
@@ -461,6 +458,12 @@ export default {
           addEmployment(this.form, this.form.empUserId)
             .then((res) => {
               console.log(res);
+              this.$notify({
+                title: "成功",
+                message: "添加成功",
+                type: "success",
+                duration: 1500,
+              });
               this.findEmploymentInfo();
             })
             .catch((err) => {

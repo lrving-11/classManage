@@ -1,6 +1,6 @@
 <template>
   <div class="app-container" style="padding: 0 20px">
-    <!--   表格     -->
+    <!--   搜索     -->
     <div class="filter-container" style="margin: 5px 15px; display: flex">
       <el-input
         v-model="search.name"
@@ -9,7 +9,6 @@
         class="filter-item"
         clearable
       />
-
       <el-button
         type="primary"
         icon="el-icon-search"
@@ -18,34 +17,8 @@
       >
         搜索
       </el-button>
-
-      <el-upload
-        class="upload-demo"
-        v-show="uploadExcelTurn"
-        drag
-        :action="
-          'http://116.62.48.128:8008/api/student/import?className=' + className
-        "
-        :headers="token"
-        :before-upload="beforeUpload"
-        :on-success="importSuccess"
-        style="
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          z-index: 100;
-          background-color: #dedede;
-        "
-      >
-        <i class="el-icon-upload"></i>
-        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-        <div class="el-upload__tip" slot="tip"></div>
-      </el-upload>
     </div>
-
-    <!--        -->
-
+    <!--   表格     -->
     <el-table
       ref="table"
       :data="tableData"
@@ -70,22 +43,6 @@
           {{ scope.row[i.fieldEngName] }}
         </template>
       </el-table-column>
-      <!-- <el-table-column label="编辑" width="170" align="center">
-        <template slot-scope="scope">
-          <el-button
-            type="success"
-            size="small"
-            @click="edit(scope.$index, scope.row)"
-            >编辑</el-button
-          >
-          <el-button
-            type="error"
-            size="small"
-            @click="deleteIdentify(scope.$index, scope.row)"
-            >删除</el-button
-          >
-        </template>
-      </el-table-column> -->
     </el-table>
     <pagination
       :total="total"
@@ -99,29 +56,16 @@
 </template>
 
 <script>
-// import zone from "@/json/zone.json";
 import doubleCreation from "@/json/DoubleCreation.json";
 import college from "@/json/college.json";
-import userData from "@/store/modules/user2";
 import Pagination from "@/components/Pagination/index";
 import UploadExcelComponent from "@/components/UploadExcel/index";
-
-// import {
-//     getCertifiedStu,
-//     editStudent,
-//     deleteCertifiedStu,
-// } from "@/api/certified";
-// import {
-//     translateChinese,
-//     translatevariable,
-// } from "@/vendor/tHeaderConversion";
 import {
-  deleteCreationStudent,
   findAllStudent,
   findCreationStudentByname,
 } from "@/api/double_creation_class/double_creation/studentData";
 import { getField } from "@/api/dontai";
-import { getDoubleCreationClass, getToken } from "@/utils/auth";
+import { getUserInfo, getToken } from "@/utils/auth";
 import { getFile } from "@/utils/getFile";
 
 export default {
@@ -134,7 +78,7 @@ export default {
     return {
       token: { token: getToken() },
       // 班级名称
-      className: getDoubleCreationClass(),
+      className: getUserInfo().doubleCreationClass,
 
       // 分页
       total: 0,
@@ -150,7 +94,6 @@ export default {
       showReviewer: 0,
       // 导入面板开关
       calendarTypeOptions: [],
-
       search: {
         // 姓名
         name: "",
@@ -158,7 +101,6 @@ export default {
         doubleCreationClass: "",
         stuNum: "",
       },
-
       // 筛选学院，数组，元素是对象，有text和value两个属性
       college: college,
       // 双创班
@@ -234,97 +176,6 @@ export default {
           this.listLoading = false;
         });
     },
-
-    // 删除
-    deleteIdentify(index, row) {
-      this.listLoading = true;
-      console.log(row, "删除row");
-      let data = {};
-      data.className = this.$store.state.user.doubleCreationClassName;
-      data.adminUserName = this.$store.state.user.adminUserName || "superAdmin";
-      data.id = row.id;
-
-      deleteCreationStudent(data.adminUserName, data.id)
-        .then((res) => {
-          this.$message.success(res.msg);
-          this.getTable();
-        })
-        .catch((err) => {
-          this.$message.error("出错！" + err);
-          console.log(err);
-        });
-      this.listLoading = false;
-    },
-
-    handleDownload() {
-      if (
-        this.search.name ||
-        this.search.doubleCreationClass ||
-        this.search.stuNum
-      ) {
-        getFile(
-          `http://116.62.48.128:8008/api/student/findExport?name=${
-            this.search.name
-          }&className=${getDoubleCreationClass()}&doubleCreationClass=${
-            this.search.doubleCreationClass
-          }&stuNum=${this.search.stuNum}`,
-          "双创班学生信息.xlsx"
-        );
-        return;
-      }
-
-      getFile(
-        "http://116.62.48.128:8008/api/student/export" +
-          `?className=${getDoubleCreationClass()}`,
-        "双创班学生信息.xlsx"
-      );
-
-      // this.downloadLoading = true;
-      // import("@/vendor/Export2Excel").then((excel) => {
-      //     const tHeader = [
-      //         "姓名",
-      //         "性别",
-      //         "政治面貌",
-      //         "双创班名称",
-      //         "所在学院",
-      //         "专业班级",
-      //         "学号",
-      //         "联系电话",
-      //         "QQ号码/邮箱",
-      //         "加入班级时间",
-      //         "离开班级时间",
-      //         "双创班职务",
-      //     ];
-      //     const filterVal = [
-      //         "name",
-      //         // 性别
-      //         "gender",
-      //         // 政治面貌
-      //         "politicalStatus",
-      //         // 双创班名称
-      //         "doubleCreationClass",
-      //         "college",
-      //         // 专业班级
-      //         "professionClass",
-      //         // 学号
-      //         "stuNum",
-      //         "phone",
-      //         "email",
-      //         // 加入班级时间
-      //         "inDate",
-      //         "outDate",
-      //         // 双创班职务
-      //         "position",
-      //     ];
-      //     const data = this.formatJson(filterVal);
-      //     excel.export_json_to_excel({
-      //         header: tHeader,
-      //         data,
-      //         filename: "双创班学生信息表",
-      //     });
-      //     // this.downloadLoading = false;
-      // });
-    },
     formatJson(filterVal) {
       return this.list.map((v) =>
         filterVal.map((j) => {
@@ -335,24 +186,6 @@ export default {
           }
         })
       );
-    },
-
-    beforeUpload(file) {
-      // const isLt1M = file.size / 1024 / 1024 < 1;
-      // if (isLt1M) {
-      //     return true;
-      // }
-      // this.$message({
-      //     message: "请不要上传大于 1m 大小的文件。",
-      //     type: "warning",
-      // });
-      // return false;
-
-      if (getDoubleCreationClass() === "superAdmin") {
-        this.$message.error("超级管理员禁止直接导入，请在权限控制中切换身份！");
-        return false;
-      }
-      return true;
     },
 
     //  搜索
@@ -393,13 +226,6 @@ export default {
           this.listQuery.limit
       );
     },
-    edit(index, row) {
-      // console.log(row);
-      this.$router.push(
-        "/double-creation/student-data2/edit/" + JSON.stringify(row)
-      );
-    },
-
     importSuccess(res) {
       this.$message(res.msg);
       this.getTable();

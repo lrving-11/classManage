@@ -45,7 +45,7 @@
 import college from "@/json/college.json";
 import doubleCreation from "@/json/DoubleCreation.json";
 import { editCreationGraduate } from "@/api/graduate_students/creationGraduateData";
-import { getToken, getAdminUserName, getUserInfo } from "@/utils/auth";
+import { getToken, getUserInfo } from "@/utils/auth";
 import { getField } from "@/api/dontai";
 
 export default {
@@ -82,10 +82,9 @@ export default {
       this.$refs.form.validate((valid) => {
         if (valid) {
           let form = {};
-          // form.className = getDoubleCreationClass();
 
           if (getUserInfo.isisAdmin || getUserInfo.isisSuperAdmin) {
-            form.adminUsername = getAdminUserName() || "superAdmin";
+            form.adminUsername = getUserInfo().username;
           } else {
             this.$message.error("非管理员");
             // // 清理绑定数据

@@ -69,27 +69,6 @@
           {{ scope.row[i.fieldEngName] }}
         </template>
       </el-table-column>
-      <!-- <el-table-column
-        class-name="status-col"
-        label="编辑"
-        width="170"
-        align="center"
-      >
-        <template slot-scope="scope">
-          <el-button
-            type="success"
-            size="small"
-            @click="edit(scope.$index, scope.row)"
-            >编辑</el-button
-          >
-          <el-button
-            type="error"
-            size="small"
-            @click="deleteIdentify(scope.$index, scope.row)"
-            >删除</el-button
-          >
-        </template>
-      </el-table-column> -->
     </el-table>
 
     <pagination
@@ -127,9 +106,8 @@ import {
   // searchExportCreationGraduate,
 } from "@/api/graduate_students/creationGraduateData";
 import {
-  getDoubleCreationClass,
   getToken,
-  getAdminUserName,
+  getUserInfo
 } from "@/utils/auth";
 import { getField } from "@/api/dontai";
 
@@ -141,11 +119,9 @@ export default {
 
   data() {
     return {
-      adminUserName: getAdminUserName() || "superAdmin",
+      adminUserName: getUserInfo().username,
       token: { token: getToken() },
-      // className: getDoubleCreationClass(),
-      className: "信息处理与计算创新创业实验班",
-
+      className: getUserInfo().doubleCreationClass,
       total: 0,
       listQuery: {
         page: 1,

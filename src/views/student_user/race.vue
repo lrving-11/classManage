@@ -7,13 +7,13 @@
       <el-button type="success" @click="pass" style="margin-left: 10px"
         >审核通过</el-button
       >
-      <el-button type="info" @click="inReview" style="margin-left: 10px"
+      <!-- <el-button type="info" @click="inReview" style="margin-left: 10px"
         >审核中</el-button
       >
-      <el-button type="info" @click="refuse" style="margin-left: 10px"
+      <el-button type="danger" @click="refuse" style="margin-left: 10px"
         >审核被拒</el-button
-      >
-
+      > -->
+      
       <div v-show="allIsShow">
         <!-- 表格展示 -->
         <el-table
@@ -227,7 +227,6 @@
         </div>
       </el-dialog>
       <!-- 信息添加弹框END -->
-
       <div v-show="!allIsShow" style="margin-top: 10px">
         <el-table :data="refuseData" style="width: 100%" border="">
           <el-table-column prop="refuseClassName" label="班级">
@@ -243,13 +242,13 @@
 // import doubleCreation from "@/json/DoubleCreation.json";
 // import college from "@/json/college.json";
 
-// import {
-//   addContestWinners,
-//   deleteContestWinners,
-//   findContestWinners,
-//   updateContestWinners,
-//   uploadContestWinners,
-// } from "@/api/double_creation_class/double_creation/contestWinners";
+import {
+  addContestWinners,
+  // deleteContestWinners,
+  // findContestWinners,
+  // updateContestWinners,
+  // uploadContestWinners,
+} from "@/api/double_creation_class/double_creation/contestWinners";
 
 import {
   findCompetition,
@@ -261,7 +260,7 @@ import {
 } from "@/api/student";
 
 import Pagination from "@/components/Pagination";
-import { getDoubleCreationClass, getToken } from "@/utils/auth";
+import { getUserInfo } from "@/utils/auth";
 export default {
   components: { Pagination },
   created() {
@@ -276,7 +275,7 @@ export default {
       ifShow: false,
       fileList: [],
       uploadFile: undefined,
-      className: getDoubleCreationClass(),
+      className: getUserInfo().doubleCreationClass,
       updataIndex: 0,
       status: "",
       total: 0,

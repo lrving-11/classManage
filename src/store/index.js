@@ -13,6 +13,7 @@ const store = new Vuex.Store({
         app,
         settings,
         user,
+        // user2,
     },
     getters,
 });

@@ -45,11 +45,7 @@
 import college from "@/json/college.json";
 import doubleCreation from "@/json/DoubleCreation.json";
 import { editCreationGraduate } from "@/api/graduate_students/creationGraduateData";
-import {
-  getToken,
-  getAdminUserName,
-  getDoubleCreationClass,
-} from "@/utils/auth";
+import { getToken, getUserInfo } from "@/utils/auth";
 import { getField } from "@/api/dontai";
 
 export default {
@@ -58,7 +54,6 @@ export default {
       token: { token: getToken() },
       fields: [],
       form: {},
-    //   adminUserName: getAdminUserName() || "superAdmin",
       adminUserName: "superAdmin",
       // 学院
       college: college,
@@ -87,14 +82,14 @@ export default {
       this.$refs.form.validate((valid) => {
         if (valid) {
           // let form = {};
-          // form.className = getDoubleCreationClass();
+          // form.className =  getUserInfo().doubleCreationClass();
 
           // form.id = this.form.id;
           // form.adminUsername=getAdminUserName()||"superAdmin";
           // form["graField"] = this.form;
           let form1 = {};
           form1.graId = this.form.id;
-          form1.graClassName = getDoubleCreationClass();
+          form1.graClassName = getUserInfo().doubleCreationClass;
           form1["graField"] = this.form;
           form1.graUserId = 0;
           console.log(this.adminUserName, "admin");

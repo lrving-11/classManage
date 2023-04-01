@@ -138,7 +138,7 @@ import college from "@/json/college.json";
 import doubleCreation from "@/json/DoubleCreation.json";
 import { addCreationStudent } from "@/api/double_creation_class/double_creation/studentData";
 import { getField, addField, deleteField, updateField } from "@/api/dontai";
-import { getDoubleCreationClass, getToken } from "@/utils/auth";
+import { getToken } from "@/utils/auth";
 
 export default {
   data() {

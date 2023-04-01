@@ -47,9 +47,7 @@ import doubleCreation from "@/json/DoubleCreation.json";
 import { editCreationStudent } from "@/api/double_creation_class/double_creation/studentData";
 import { getField } from "@/api/dontai";
 import {
-  getDoubleCreationClass,
   getToken,
-  getAdminUserName,
   getUserInfo,
 } from "@/utils/auth";
 
@@ -88,11 +86,6 @@ export default {
       this.$refs.form.validate((valid) => {
         if (valid) {
           let adminUserName1 = "";
-          // form.className = this.$store.state.user.doubleCreationClassName;
-          // form.className = getDoubleCreationClass();
-          // form.id = this.form.id;
-          // form["stuField"] = this.form;
-
           if (getUserInfo.isisAdmin || getUserInfo.isisSuperAdmin) {
             adminUsername1 = getAdminUserName() || "superAdmin";
           } else {

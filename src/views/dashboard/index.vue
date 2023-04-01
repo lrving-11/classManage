@@ -79,7 +79,7 @@
 <script>
 import echarts from "@/components/echarts/echarts";
 import { mapGetters } from "vuex";
-import { getDoubleCreationClass, getUserCollege } from "@/utils/auth";
+import { getUserInfo } from "@/utils/auth";
 import { number } from "@/api/mainpage";
 export default {
   name: "Dashboard",
@@ -89,9 +89,8 @@ export default {
   },
   data() {
     return {
-      userClassName: getDoubleCreationClass(),
-      userCollege: getUserCollege(),
-
+      userClassName: getUserInfo().username,
+      userCollege: getUserInfo().userCollege,
       num: {
         // 学科竞赛总人数
         schoolWinner: 0,
@@ -116,7 +115,6 @@ export default {
     getNum() {
       number().then((res) => {
         console.log("homeNum", res.data);
-        this.num.schoolWinner = res.data.schoolCompetition;
         this.num.classWinner = res.data.achieveCompetition;
         this.num.classStudent = res.data.student;
         this.num.classGraduate = res.data.graduateStudent;

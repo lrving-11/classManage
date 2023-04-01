@@ -46,12 +46,12 @@ import college from "@/json/college.json";
 import doubleCreation from "@/json/DoubleCreation.json";
 import { addCreationGraduate } from "@/api/graduate_students/creationGraduateData";
 import { getField } from "@/api/dontai";
-import { getDoubleCreationClass, getToken } from "@/utils/auth";
+import { getUserInfo, getToken } from "@/utils/auth";
 
 export default {
   data() {
     return {
-      className: getDoubleCreationClass(),
+      className: getUserInfo().doubleCreationClass,
       disabled: false,
       token: { token: getToken() },
       form: {},
@@ -65,15 +65,6 @@ export default {
   created() {
     this.getField();
   },
-  // mounted() {
-  //     if (getDoubleCreationClass() === "superAdmin") {
-  //         this.$confirm(
-  //             "超级管理员禁止直接添加信息，请在权限控制中切换班级身份！"
-  //         );
-  //         this.disabled = true;
-  //     }
-
-  // },
   methods: {
     getField() {
       getField("graStudentInfo")

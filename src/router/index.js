@@ -72,7 +72,7 @@ export const constantRoutes = [
 export const studentMap = [
   // 学生及相关信息
   {
-    path: "/double-creation",
+    path: "/student_user",
     component: Layout,
     meta: {
       title: "学生及相关信息",
@@ -163,8 +163,8 @@ export const studentMap = [
         },
       },
       {
-        path: "/table1",
-        component: () => import("@/views/student_user/table1"),
+        path: "/race",
+        component: () => import("@/views/student_user/race"),
         meta: {
           title: "竞赛获奖信息",
           icon: "el-icon-s-unfold",

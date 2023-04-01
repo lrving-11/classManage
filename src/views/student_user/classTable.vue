@@ -1,8 +1,6 @@
 <template>
   <div style="margin-top: 40px">
-    <!-- <el-button type="primary" @click="addInfo" style="margin-left: 10px"
-      >添加信息</el-button
-    > -->
+ 
     <!-- 表格展示 -->
     <el-table
       :data="tableData"
@@ -43,38 +41,18 @@
       <el-table-column
         prop="classIntroduceImage"
         label="班级图片(点击查看大图)"
-        width=""
+        width="150px"
       >
         <template slot-scope="{ row }">
           <el-image
           v-if="row.classIntroduceImage"
-            style="width: 100px; height: 100px"
+            style="width: 140px; height: 140px"
             :src="row.classIntroduceImage"
             :preview-src-list="srcList"
           ></el-image>
            <el-tag v-if="!row.classIntroduceImage">未添加图片</el-tag>
         </template>
       </el-table-column>
-      <!-- <el-table-column
-        label="操作"
-        align="center"
-        width="200"
-        class-name="small-padding fixed-width"
-        fixed="right"
-      >
-        <template slot-scope="{ row, $index }">
-          <el-button
-            type="primary"
-            size="mini"
-            @click="updateInfo(row, $index)"
-          >
-            编辑
-          </el-button>
-          <el-button type="danger" size="mini" @click="deleteInfo(row, $index)">
-            删除
-          </el-button>
-        </template>
-      </el-table-column> -->
     </el-table>
     <!-- 表格展示END -->
 
@@ -126,149 +104,7 @@
     <!-- 分页END -->
 
     <!-- 双创班信息添加弹框 -->
-    <el-dialog
-      title="双创班信息"
-      :visible.sync="isShow"
-      :before-close="handleClose"
-      center
-    >
-      <el-form
-        ref="form"
-        :model="form"
-        label-width="140px"
-        size="small"
-        :inline="true"
-        highlight-current-row
-      >
-        <el-form-item label="班级名称">
-          <el-select v-model="form.className" placeholder="请选择">
-            <el-option
-              v-for="item in doubleCreation"
-              :key="item.text"
-              :label="item.text"
-              :value="item.value"
-            >
-            </el-option>
-          </el-select>
-        </el-form-item>
 
-        <el-form-item label="主办学院">
-          <el-select
-            v-model="form.classFoundCollege"
-            style="width: 100%"
-            clearable
-          >
-            <el-option v-for="i in college" :key="i.text" :value="i.value">{{
-              i.text
-            }}</el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="班级成立时间">
-          <el-date-picker
-            v-model="form.classFoundTime"
-            type="month"
-            format="yyyy 年 MM 月"
-            value-format="yyyy-MM"
-            placeholder="班级成立时间"
-            style="width: 100%"
-          />
-        </el-form-item>
-
-        <el-form-item label="首导姓名及学院">
-          <el-input
-            v-model="form.classTeacherName"
-            placeholder="姓名(学院)"
-          ></el-input>
-        </el-form-item>
-
-        <el-form-item label="联系电话">
-          <el-input v-model="form.classTeacherPhone"></el-input>
-        </el-form-item>
-        <el-form-item label="导师成员及学院">
-          <el-input
-            v-model="form.classGroupNameCollege"
-            placeholder="姓名(学院)"
-          ></el-input>
-        </el-form-item>
-
-        <el-form-item label="校外导师及所属单位">
-          <el-input
-            v-model="form.classOutTeacherCompany"
-            placeholder="姓名(所属单位)"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="双创教育基地名称">
-          <el-input
-            v-model="form.classBaseName"
-            placeholder="双创教育基地名称"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="挂牌时间">
-          <el-date-picker
-            v-model="form.classListingTime"
-            type="month"
-            format="yyyy 年 MM 月"
-            value-format="yyyy-MM"
-            placeholder="挂牌时间"
-            style="width: 100%"
-          />
-        </el-form-item>
-        <el-form-item label="班级简介">
-          <el-input
-            v-model="form.classIntroduceText"
-            type="textarea"
-            placeholder="班级简介"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="班级图片">
-          <el-upload
-            ref="upload"
-            drag
-            accept="image/jpeg,image/png,application/pdf"
-            :limit="1"
-            :file-list="fileList"
-            action="123"
-            :before-upload="beforeUpload"
-            :http-request="uploadImg"
-            style="margin: 0 auto"
-          >
-            <i class="el-icon-upload"></i>
-            <div class="el-upload__text">
-              将文件拖到此处，或<em>点击上传</em>
-            </div>
-            <div class="el-upload__tip" slot="tip">
-              仅支持单文件上传,多文件请压缩
-            </div>
-          </el-upload>
-        </el-form-item>
-      </el-form>
-
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="isShow = false">取 消</el-button>
-        <el-popover
-          placement="top-start"
-          width="200"
-          trigger="click"
-          v-model="visible"
-        >
-          <p>确定提交吗?</p>
-          <div style="text-align: right; margin: 0">
-            <el-button size="mini" type="text" @click="visible = false"
-              >取消</el-button
-            >
-            <el-button
-              type="primary"
-              size="mini"
-              @click="status === 'add' ? addIntroduce() : updateEmployment()"
-              >确定</el-button
-            >
-          </div>
-          <el-button slot="reference" type="primary" style="margin-left: 20px"
-            >提 交</el-button
-          >
-        </el-popover>
-      </div>
-    </el-dialog>
     <!-- 信息添加弹框END -->
   </div>
 </template>
@@ -281,10 +117,9 @@ import {
   addIntroduce,
   createdClassUpload,
 } from "@/api/double_creation_class/double_creation/introduce";
-import { findCreatedClass } from "@/api/student";
 import Pagination from "@/components/Pagination";
 
-import { getDoubleCreationClass, getToken } from "@/utils/auth";
+import { getUserInfo } from "@/utils/auth";
 export default {
   components: { Pagination },
   created() {
@@ -296,7 +131,7 @@ export default {
       srcList: [],
       fileList: [],
       uploadFile: undefined,
-      className: getDoubleCreationClass(),
+      className: getUserInfo().doubleCreationClass,
       //
       doubleCreation: doubleCreation,
       college: college,
@@ -336,44 +171,12 @@ export default {
   methods: {
     findIntroduce(row) {
       this.classIntroductionTurn = true;
-
       this.playintroduceText = row.classIntroduceText;
     },
     beforeUpload(file) {
       this.$refs.upload.clearFiles();
       this.uploadFile = file;
     },
-    uploadImg(img) {
-      console.log("上传二维码");
-      let formData = new FormData();
-      formData.append("file", this.uploadFile);
-      createdClassUpload(this.className, formData, this.form.classId)
-        .then((res) => {
-          this.form.classIntroduceImage = res.data.classIntroduceImage;
-
-          console.log("上传成功");
-          this.$notify({
-            title: "成功",
-            message: "图片上传成功",
-            type: "success",
-            duration: 1500,
-          });
-          img.onSuccess();
-        })
-        .catch((err) => {
-          console.log("上传失败");
-          img.onError();
-        });
-    },
-    handleClose() {
-      this.$confirm("确认关闭？")
-        .then((_) => {
-          // done();
-          this.isShow = false;
-        })
-        .catch((_) => {});
-    },
-
     findAllIntroduceInfo() {
       // 查询信息
       findAllIntroduce(1, 10000, "superAdmin")
@@ -415,92 +218,6 @@ export default {
 
       this.tableData = tableData;
       // console.log(this.tableData, "tableData");
-    },
-    handleDownload() {},
-    resetTemp() {
-      this.form = {
-        classBaseName: "",
-        classBelongCollege: "",
-        classElse: "",
-        classFoundCollege: "",
-        classFoundTime: "",
-        classGroupNameCollege: "",
-        classId: 0,
-        classIntroduceImage: "",
-        classIntroduceText: "",
-        classListingTime: "",
-        className: "", //班级名称
-        classOutTeacherCompany: "",
-        classTeacherName: "",
-        classTeacherPhone: "",
-      };
-    },
-
-    addInfo() {
-      this.resetTemp();
-      this.isShow = true;
-      this.status = "add";
-      this.$nextTick(() => {
-        this.$refs["form"].clearValidate();
-      });
-    },
-
-    updateInfo(row, index) {
-      this.form = Object.assign({}, row);
-      this.status = "update";
-      this.isShow = true;
-      this.updataIndex = index;
-    },
-
-    // 删
-    deleteInfo(row, index) {
-      console.log(row.empId, "row");
-      this.list.splice(index, 1);
-      deleteEmployment("", row.empId)
-        .then((result) => {
-          this.$notify({
-            title: "成功",
-            message: "删除成功",
-            type: "success",
-            duration: 1500,
-          });
-          this.findAllIntroduceInfo();
-        })
-        .catch((err) => {});
-    },
-    // 添加
-    addIntroduce() {
-      console.log("添加函数");
-      this.$refs["form"].validate((valid) => {
-        if (valid) {
-          // this.list.push(this.form);
-          addIntroduce(this.form)
-            .then((res) => {
-              console.log(res);
-              this.findAllIntroduceInfo();
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
-      });
-      this.isShow = false;
-      this.visible = false;
-    },
-    // 改
-    updateEmployment() {
-      console.log("更新函数");
-      this.$refs["form"].validate((valid) => {
-        if (valid) {
-          updateEmployment("", this.form)
-            .then((res) => {
-              this.findAllIntroduceInfo();
-            })
-            .catch((err) => {});
-        }
-      });
-      this.isShow = false;
-      this.visible = false;
     },
   },
 };

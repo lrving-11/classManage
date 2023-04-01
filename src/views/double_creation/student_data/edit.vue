@@ -47,9 +47,8 @@ import doubleCreation from "@/json/DoubleCreation.json";
 import { editCreationStudent } from "@/api/double_creation_class/double_creation/studentData";
 import { getField } from "@/api/dontai";
 import {
-  getDoubleCreationClass,
+  getUserInfo,
   getToken,
-  getAdminUserName,
 } from "@/utils/auth";
 
 export default {
@@ -58,7 +57,7 @@ export default {
       token: { token: getToken() },
       form: {},
       fields: [],
-      adminUserName: getAdminUserName() || "superAdmin",
+      adminUserName: getUserInfo().username,
       //   adminUserName: "信息处理与计算创新创业实验班",
 
       // 学院
@@ -88,14 +87,9 @@ export default {
     onSubmit() {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          // let form = {};
-          // form.className = this.$store.state.user.doubleCreationClassName;
-          // form.className = getDoubleCreationClass();
-          // form.id = this.form.id;
-          // form["stuField"] = this.form;
           let form = {};
           form.stuId = this.form.id;
-          form.stuClassName = getDoubleCreationClass();
+          form.stuClassName = getUserInfo().doubleCreationClass;
           form.stuUserId = 0;
           form["stuField"] = this.form;
           console.log(this.adminUserName, "admin");

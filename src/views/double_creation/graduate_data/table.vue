@@ -128,9 +128,9 @@ import {
   // searchExportCreationGraduate,
 } from "@/api/graduate_students/creationGraduateData";
 import {
-  getDoubleCreationClass,
   getToken,
-  getAdminUserName,
+  getUserInfo
+
 } from "@/utils/auth";
 import { getField } from "@/api/dontai";
 
@@ -142,11 +142,9 @@ export default {
 
   data() {
     return {
-      adminUserName: getAdminUserName() || "superAdmin",
+      adminUserName: getUserInfo().username,
       token: { token: getToken() },
-      className: getDoubleCreationClass(),
-      // className: "信息处理与计算创新创业实验班",
-
+      className: getUserInfo().doubleCreationClass,
       total: 0,
       listQuery: {
         page: 1,
@@ -299,14 +297,14 @@ export default {
             this.search.name
           }&stuNum=${this.search.stuNum}&doubleCreationClass=${
             this.search.doubleCreationClass
-          }&className=${getDoubleCreationClass()}`,
+          }&className=${ getUserInfo().doubleCreationClass}`,
           "双创班毕业生信息表.xlsx"
         );
 
         return;
       }
       getFile(
-        `http://116.62.48.128:8008/api/graduateStudent/export?className=${getDoubleCreationClass()}`,
+        `http://116.62.48.128:8008/api/graduateStudent/export?className=${ getUserInfo().doubleCreationClass}`,
         "双创班毕业生信息表.xlsx"
       );
 
@@ -439,7 +437,7 @@ export default {
       //     type: "warning",
       // });
       // return false;
-      if (getDoubleCreationClass() === "superAdmin") {
+      if ( getUserInfo().doubleCreationClass === "superAdmin") {
         this.$message.error("超级管理员禁止直接导入，请在权限控制中切换身份！");
         return false;
       }

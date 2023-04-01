@@ -101,26 +101,16 @@
 // import zone from "@/json/zone.json";
 import doubleCreation from "@/json/DoubleCreation.json";
 import college from "@/json/college.json";
-import userData from "@/store/modules/user2";
 import Pagination from "@/components/Pagination/index";
 import UploadExcelComponent from "@/components/UploadExcel/index";
 
-// import {
-//     getCertifiedStu,
-//     editStudent,
-//     deleteCertifiedStu,
-// } from "@/api/certified";
-// import {
-//     translateChinese,
-//     translatevariable,
-// } from "@/vendor/tHeaderConversion";
 import {
   deleteCreationStudent,
   findAllStudent,
   findCreationStudentByname,
 } from "@/api/double_creation_class/double_creation/studentData";
 import { getField } from "@/api/dontai";
-import { getDoubleCreationClass, getToken } from "@/utils/auth";
+import { getUserInfo, getToken } from "@/utils/auth";
 import { getFile } from "@/utils/getFile";
 
 export default {
@@ -133,9 +123,8 @@ export default {
     return {
       token: { token: getToken() },
       // 班级名称
-      className: getDoubleCreationClass(),
+      className: getUserInfo().doubleCreationClass,
       // className: "信息处理与计算创新创业实验班",
-
       // 分页
       total: 0,
       listQuery: {
@@ -241,7 +230,7 @@ export default {
       console.log(row,"删除row");
       let data = {};
       data.className = this.$store.state.user.doubleCreationClassName;
-      data.adminUserName = this.$store.state.user.adminUserName||"superAdmin";
+      data.adminUserName = this.$store.state.user.name;
       data.id = row.id;
 
       deleteCreationStudent(data.adminUserName, data.id)

@@ -55,7 +55,7 @@
         </span>
         <el-input
           :key="passwordType"
-          ref="userInfoPassword"
+          ref="password"
           v-model="registerForm.userInfoPassword"
           :type="passwordType"
           placeholder="密码"
@@ -77,7 +77,7 @@
         </span>
         <el-input
           :key="passwordType"
-          ref="passwordCheck"
+          ref="password"
           v-model="registerForm.passwordCheck"
           :type="passwordType"
           placeholder="确认密码"
@@ -171,7 +171,7 @@ export default {
         userInfoIsAdmin: false,
         userInfoIsFrozen: false,
         userInfoIsSuperAdmin: false,
-        userInfoName: "", //姓名
+        userInfoName: "", //姓名(弃用)
         userInfoPassword: "123456", //密码
         userInfoPhone: "", //电话
         userInfoTime: "",
@@ -230,9 +230,6 @@ export default {
       } else {
         this.passwordType = "password";
       }
-      this.$nextTick(() => {
-        this.$refs.password.focus();
-      });
     },
     handleRegister() {
       this.$refs.registerForm.validate((valid) => {
