@@ -1,16 +1,9 @@
 <template>
   <div>
     <div style="margin-top: 10px">
-      <!-- <el-button type="success" @click="pass" style="margin-left: 10px"
-        >审核通过</el-button
-      > -->
       <el-button type="info" @click="inReview" style="margin-left: 10px"
         >审核中</el-button
       >
-      <!-- <el-button type="info" @click="refuse" style="margin-left: 10px"
-        >审核被拒</el-button
-      > -->
-
       <div v-show="allIsShow">
         <!-- 表格展示 -->
         <el-table
@@ -22,8 +15,6 @@
         >
           <el-table-column type="index" width="100" align="center">
           </el-table-column>
-          <!-- <el-table-column prop="comUserId" label="用户ID" width="">
-      </el-table-column> -->
           <el-table-column prop="comAwardsStudent" label="获奖学生" width="">
           </el-table-column>
           <el-table-column prop="comAwardTime" label="获奖时间" width="">
@@ -47,12 +38,12 @@
           <el-table-column
             prop="comRemark"
             label="荣誉证书(点击查看大图)"
-            width=""
+            width="150"
           >
             <template slot-scope="{ row }">
               <el-image
                 v-if="row.comRemark"
-                style="width: 100px; height: 100px"
+                style="width: 140px; height: 140px"
                 :src="row.comRemark"
                 :preview-src-list="srcList"
               ></el-image>
@@ -70,13 +61,6 @@
               <el-button type="success" size="mini" @click="check(row, $index)">
                 审核
               </el-button>
-              <!-- <el-button
-                type="danger"
-                size="mini"
-                @click="deleteInfo(row, $index)"
-              >
-                删除
-              </el-button> -->
             </template>
           </el-table-column>
         </el-table>
@@ -122,143 +106,6 @@
         </div>
       </el-dialog>
       <!-- 审核弹框END -->
-
-      <!-- 获奖添加弹框 -->
-      <!-- <el-dialog
-        title="竞赛获奖信息"
-        :visible.sync="isShow"
-        :before-close="handleClose"
-        center
-      >
-        <el-form
-          ref="form"
-          :model="form"
-          label-width="140px"
-          size="small"
-          :inline="true"
-          highlight-current-row
-        >
-          
-          <el-form-item label="获奖学生">
-            <el-input
-              v-model="form.comAwardsStudent"
-              placeholder="姓名"
-            ></el-input>
-          </el-form-item>
-
-          <el-form-item label="获奖时间">
-            <el-date-picker
-              v-model="form.comAwardTime"
-              type="month"
-              format="yyyy 年 MM 月"
-              value-format="yyyy-MM"
-              placeholder="获奖时间"
-              style="width: 100%"
-            />
-          </el-form-item>
-
-          <el-form-item label="双创班级">
-            <el-input v-model="form.comClassName"></el-input>
-          </el-form-item>
-
-          <el-form-item label="首导姓名">
-            <el-input v-model="form.comTeacherName"></el-input>
-          </el-form-item>
-
-          <el-form-item label="主办单位">
-            <el-input v-model="form.comOrganizer" placeholder=""></el-input>
-          </el-form-item>
-
-          <el-form-item label="竞赛类别">
-            <el-input v-model="form.comCategory" placeholder=""></el-input>
-          </el-form-item>
-          <el-form-item label="级别">
-            <el-input v-model="form.comLevel" placeholder=""></el-input>
-          </el-form-item>
-
-          <el-form-item label="竞赛名称">
-            <el-input v-model="form.comName" placeholder=""></el-input>
-          </el-form-item>
-
-          <el-form-item label="参赛作品名称">
-            <el-input
-              v-model="form.comWorkName"
-              type=""
-              placeholder=""
-            ></el-input>
-          </el-form-item>
-          <el-form-item label="荣誉等级">
-            <el-input
-              v-model="form.comHonorLevel"
-              type=""
-              placeholder=""
-            ></el-input>
-          </el-form-item>
-          <el-form-item label="备注(荣誉证书)">
-            <el-upload
-              ref="upload"
-              drag
-              accept="image/jpeg,image/png,application/pdf"
-              :limit="1"
-              :file-list="fileList"
-              action="123"
-              :before-upload="beforeUpload"
-              :http-request="uploadImg"
-              style="margin: 0 auto"
-            >
-              <i class="el-icon-upload"></i>
-              <div class="el-upload__text">
-                将文件拖到此处，或<em>点击上传</em>
-              </div>
-              <div class="el-upload__tip" slot="tip">
-                仅支持单文件上传,多文件请压缩
-              </div>
-            </el-upload>
-
-           
-          </el-form-item>
-        </el-form>
-
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="isShow = false">取 消</el-button>
-          <el-popover
-            placement="top-start"
-            width="200"
-            trigger="click"
-            v-model="visible"
-          >
-            <p>确定提交吗?</p>
-            <div style="text-align: right; margin: 0">
-              <el-button size="mini" type="text" @click="visible = false"
-                >取消</el-button
-              >
-              <el-button
-                type="primary"
-                size="mini"
-                @click="
-                  status === 'add'
-                    ? addContestWinners()
-                    : updateContestWinners()
-                "
-                >确定</el-button
-              >
-            </div>
-            <el-button slot="reference" type="primary" style="margin-left: 20px"
-              >提 交</el-button
-            >
-          </el-popover>
-        </div>
-      </el-dialog> -->
-      <!-- 信息添加弹框END -->
-
-      <!-- <div v-show="!allIsShow" style="margin-top: 10px">
-        <el-table :data="refuseData" style="width: 100%" border="">
-          <el-table-column prop="refuseClassName" label="班级">
-          </el-table-column>
-          <el-table-column prop="refuseReason" label="被拒原因">
-          </el-table-column>
-        </el-table>
-      </div> -->
     </div>
   </div>
 </template>
@@ -272,7 +119,7 @@ import {
 } from "@/api/admin/superAdmin";
 
 import Pagination from "@/components/Pagination";
-import { getDoubleCreationClass, getToken } from "@/utils/auth";
+import { getUserInfo } from "@/utils/auth";
 export default {
   components: { Pagination },
   created() {
@@ -287,12 +134,10 @@ export default {
       ifShow: false,
       fileList: [],
       uploadFile: undefined,
-      className: getDoubleCreationClass(),
+      className: getUserInfo().doubleCreationClass,
       //
-      //
-      // className: "格物创新创业实验班",
       dialogFormVisible: false,
-      // className: "计算机",
+
       updataIndex: 0,
       status: "",
       total: 0,
@@ -379,7 +224,7 @@ export default {
         .then((res) => {
           this.list = res.data;
           this.total = this.list.length;
-          // console.log(this.total, "total");
+          console.log(this.total, "total");
           // 分页
           let tableData = this.list.filter((item, index) => {
             this.srcList.push(item.comRemark);
@@ -406,31 +251,7 @@ export default {
         })
         .catch((_) => {});
     },
-    // inReview() {
-    //   // 查询信息
-    //   this.ifShow = false;
-    //   findCompetition(1, 10000, 0)
-    //     .then((res) => {
-    //       this.list = res.data;
-    //       this.total = this.list.length;
-    //       // console.log(this.total, "total");
-    //       // 分页
-    //       let tableData = this.list.filter((item, index) => {
-    //         if (
-    //           index >= this.listQuery.limit * (this.listQuery.page - 1) &&
-    //           index <= this.listQuery.limit * this.listQuery.page - 1
-    //         ) {
-    //           return item;
-    //         }
-    //       });
-    //       // console.log(tableData, "11");
-    //       this.tableData = tableData;
-    //       // console.log(this.tableData, "tableData");
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
+
     //分页
     getTable() {
       // 查询信息
@@ -467,90 +288,90 @@ export default {
       };
     },
 
-    addInfo() {
-      this.resetTemp();
-      this.isShow = true;
-      this.status = "add";
-      this.$nextTick(() => {
-        this.$refs["form"].clearValidate();
-      });
-    },
+    // addInfo() {
+    //   this.resetTemp();
+    //   this.isShow = true;
+    //   this.status = "add";
+    //   this.$nextTick(() => {
+    //     this.$refs["form"].clearValidate();
+    //   });
+    // },
 
-    updateInfo(row, index) {
-      this.form = Object.assign({}, row);
-      this.status = "update";
-      this.isShow = true;
-      this.updataIndex = index;
-    },
+    // updateInfo(row, index) {
+    //   this.form = Object.assign({}, row);
+    //   this.status = "update";
+    //   this.isShow = true;
+    //   this.updataIndex = index;
+    // },
 
-    // 删
-    deleteInfo(row, index) {
-      console.log(row.comId, "row");
-      this.list.splice(index, 1);
-      deleteCompetition(row.comId, 0)
-        .then((result) => {
-          this.$notify({
-            title: "成功",
-            message: "删除成功",
-            type: "success",
-            duration: 1500,
-          });
-          this.inReview();
-        })
-        .catch((err) => {});
-    },
-    // 添加
-    addContestWinners() {
-      console.log("添加函数");
-      this.$refs["form"].validate((valid) => {
-        if (valid) {
-          this.list.push(this.form);
-          addContestWinners(this.form, this.form.comUserId)
-            .then((res) => {
-              console.log(res);
-              this.inReview();
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
-      });
-      this.isShow = false;
-      this.visible = false;
-    },
-    // 改
-    updateContestWinners() {
-      console.log("更新函数");
-      this.$refs["form"].validate((valid) => {
-        if (valid) {
-          updateCompetition(this.form, 0)
-            .then((res) => {
-              this.inReview();
-            })
-            .catch((err) => {});
-        }
-      });
-      this.isShow = false;
-      this.visible = false;
-    },
-    // 图片上传
-    beforeUpload(file) {
-      this.uploadFile = file;
-    },
-    uploadImg(img) {
-      console.log("上传荣誉证书", this.form);
-      let formData = new FormData();
-      formData.append("file", this.uploadFile);
-      upload(formData, this.form.comId)
-        .then((res) => {
-          console.log("上传成功");
-          img.onSuccess();
-        })
-        .catch((err) => {
-          console.log("上传失败");
-          img.onError();
-        });
-    },
+    // // 删
+    // deleteInfo(row, index) {
+    //   console.log(row.comId, "row");
+    //   this.list.splice(index, 1);
+    //   deleteCompetition(row.comId, 0)
+    //     .then((result) => {
+    //       this.$notify({
+    //         title: "成功",
+    //         message: "删除成功",
+    //         type: "success",
+    //         duration: 1500,
+    //       });
+    //       this.inReview();
+    //     })
+    //     .catch((err) => {});
+    // },
+    // // 添加
+    // addContestWinners() {
+    //   console.log("添加函数");
+    //   this.$refs["form"].validate((valid) => {
+    //     if (valid) {
+    //       this.list.push(this.form);
+    //       addContestWinners(this.form, this.form.comUserId)
+    //         .then((res) => {
+    //           console.log(res);
+    //           this.inReview();
+    //         })
+    //         .catch((err) => {
+    //           console.log(err);
+    //         });
+    //     }
+    //   });
+    //   this.isShow = false;
+    //   this.visible = false;
+    // },
+    // // 改
+    // updateContestWinners() {
+    //   console.log("更新函数");
+    //   this.$refs["form"].validate((valid) => {
+    //     if (valid) {
+    //       updateCompetition(this.form, 0)
+    //         .then((res) => {
+    //           this.inReview();
+    //         })
+    //         .catch((err) => {});
+    //     }
+    //   });
+    //   this.isShow = false;
+    //   this.visible = false;
+    // },
+    // // 图片上传
+    // beforeUpload(file) {
+    //   this.uploadFile = file;
+    // },
+    // uploadImg(img) {
+    //   console.log("上传荣誉证书", this.form);
+    //   let formData = new FormData();
+    //   formData.append("file", this.uploadFile);
+    //   upload(formData, this.form.comId)
+    //     .then((res) => {
+    //       console.log("上传成功");
+    //       img.onSuccess();
+    //     })
+    //     .catch((err) => {
+    //       console.log("上传失败");
+    //       img.onError();
+    //     });
+    // },
   },
 };
 </script>

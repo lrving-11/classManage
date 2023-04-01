@@ -85,7 +85,6 @@
 import zone from "@/json/zone.json";
 import doubleCreation from "@/json/DoubleCreation.json";
 import college from "@/json/college.json";
-import userData from "@/store/modules/user2";
 import Pagination from "@/components/Pagination/index";
 import UploadExcelComponent from "@/components/UploadExcel/index";
 

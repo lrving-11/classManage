@@ -14,7 +14,8 @@
       border=""
       size=""
     >
-     <el-table-column type="index" width="100" align="center" > </el-table-column>
+      <el-table-column type="index" width="100" align="center">
+      </el-table-column>
       <el-table-column prop="empName" label="姓名" width=""> </el-table-column>
       <el-table-column prop="empBirth" label="出生年月" width="">
       </el-table-column>
@@ -354,7 +355,6 @@ export default {
           // console.log(this.total, "total");
           // 分页
           let tableData = this.list.filter((item, index) => {
-            console.log(item.empCounterpart, "11");
             if (item.empCounterpart == true) {
               item.empCounterpart = "是";
             } else {
@@ -434,7 +434,7 @@ export default {
     },
     // 删
     deleteInfo(row, index) {
-      console.log(row.empId, "row");
+      // console.log(row.empId, "row");
       this.list.splice(index, 1);
       deleteEmployment("", row.empId)
         .then((result) => {
@@ -456,7 +456,12 @@ export default {
           // this.list.push(this.form);
           addEmployment(this.form, this.form.empUserId)
             .then((res) => {
-              console.log(res);
+              this.$notify({
+                title: "成功",
+                message: "添加成功",
+                type: "success",
+                duration: 1500,
+              });
               this.findEmploymentInfo();
             })
             .catch((err) => {

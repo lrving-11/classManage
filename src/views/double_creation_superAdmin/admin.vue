@@ -36,20 +36,11 @@
             <el-input v-model="addAdmin.adminName" style="width: 250px" />
           </el-form-item>
         </div>
-        <div style="display: flex">
+        <!-- <div style="display: flex">
           <el-form-item label="公司" prop="adminCompany">
-            <!-- <el-select v-model="addAdmin.adminCompany" placeholder="请选择">
-              <el-option
-                v-for="item in filtersCollege"
-                :key="item.text"
-                :label="item.text"
-                :value="item.text"
-              />
-            </el-select> -->
              <el-input v-model="addAdmin.adminCompany" style="width: 250px" />
           </el-form-item>
-        
-        </div>
+        </div> -->
 
         <el-form-item label="修改信息" prop="adminIsUpdate">
           <el-switch
@@ -84,14 +75,8 @@
         </el-form-item>
       </el-form>
     </el-card>
-    <div class="filter-container" style="margin: 15px; display: flex">
-      <!-- <el-input
-        v-model="searchName"
-        :placeholder="'搜索'"
-        style="width: 300px"
-        class="filter-item"
-      /> -->
 
+    <div class="filter-container" style="margin: 15px; display: flex">
       <el-button
         class="filter-item"
         type="primary"
@@ -105,18 +90,15 @@
         创建管理员
       </el-button>
    
-      <el-button
+      <!-- <el-button
         class="filter-item"
         type="primary"
         icon="el-icon-download"
         @click="handleDownload"
       >
         导出
-      </el-button>
+      </el-button> -->
     </div>
-
-    <!--        -->
-
     <!--      暂时关掉  v-loading="listLoading"-->
     <el-row style="display: flex">
       <el-col :span="24">
@@ -137,12 +119,6 @@
             align="center"
           >
             <template slot-scope="scope">
-              <!--                            <el-button-->
-              <!--                                type="text"-->
-              <!--                                size="small"-->
-              <!--                                @click="authorizeClick(scope.row)"-->
-              <!--                                >授权</el-button-->
-              <!--                            >-->
               <el-button
                 plain
                 type="primary"
@@ -179,11 +155,11 @@
               {{ scope.row.adminName }}
             </template>
           </el-table-column>
-          <el-table-column label="公司" align="center" min-width="120">
+          <!-- <el-table-column label="公司" align="center" min-width="120">
             <template slot-scope="scope">
               {{ scope.row.adminCompany }}
             </template>
-          </el-table-column>
+          </el-table-column> -->
 
           <el-table-column label="电话号码" align="center" min-width="110">
             <template slot-scope="scope">
@@ -197,84 +173,14 @@
           </el-table-column>
         </el-table>
       </el-col>
-      <!--            <el-col-->
-      <!--                :span="4"-->
-      <!--                style="-->
-      <!--                    border: 2px solid rgba(116, 192, 252, 0.12);-->
-      <!--                    box-shadow: 0 0 2px 4px rgba(0, 0, 0, 0.12),-->
-      <!--                        0 0 6px rgba(0, 0, 0, 0.04);-->
-      <!--                    margin: 5px;-->
-      <!--                    position: relative;-->
-      <!--                "-->
-      <!--            >-->
-      <!--                <div style="font-weight: 300; margin: 5px auto 15px 5px;">-->
-      <!--                    授权给账号： {{ authorizeData.currentUser }}-->
-      <!--                </div>-->
-      <!--                <div v-show="authorizeData.currentUser !== ''">-->
-      <!--                    &lt;!&ndash;                    <el-checkbox-group&ndash;&gt;-->
-      <!--                    &lt;!&ndash;                        v-model="authorizeData.list"&ndash;&gt;-->
-      <!--                    &lt;!&ndash;                        style="&ndash;&gt;-->
-      <!--                    &lt;!&ndash;                            display: flex;&ndash;&gt;-->
-      <!--                    &lt;!&ndash;                            flex-direction: column;&ndash;&gt;-->
-      <!--                    &lt;!&ndash;                            margin-left: 10px;&ndash;&gt;-->
-      <!--                    &lt;!&ndash;                        "&ndash;&gt;-->
-      <!--                    &lt;!&ndash;                    >&ndash;&gt;-->
-      <!--                    &lt;!&ndash;                        <el-checkbox label="复选框 A"></el-checkbox>&ndash;&gt;-->
-      <!--                    &lt;!&ndash;                        <el-checkbox label="复选框 B"></el-checkbox>&ndash;&gt;-->
-      <!--                    &lt;!&ndash;                        <el-checkbox label="复选框 C"></el-checkbox>&ndash;&gt;-->
-      <!--                    &lt;!&ndash;                        <el-checkbox label="禁用"></el-checkbox>&ndash;&gt;-->
-      <!--                    &lt;!&ndash;                        <el-checkbox label="选中且禁用"></el-checkbox>&ndash;&gt;-->
-      <!--                    &lt;!&ndash;                    </el-checkbox-group>&ndash;&gt;-->
-      <!--                    &lt;!&ndash;                    <el-button&ndash;&gt;-->
-      <!--                    &lt;!&ndash;                        type="primary"&ndash;&gt;-->
-      <!--                    &lt;!&ndash;                        style="&ndash;&gt;-->
-      <!--                    &lt;!&ndash;                            position: absolute;&ndash;&gt;-->
-      <!--                    &lt;!&ndash;                            left: 50%;&ndash;&gt;-->
-      <!--                    &lt;!&ndash;                            bottom: 10px;&ndash;&gt;-->
-      <!--                    &lt;!&ndash;                            transform: translateX(-50%);&ndash;&gt;-->
-      <!--                    &lt;!&ndash;                        "&ndash;&gt;-->
-      <!--                    &lt;!&ndash;                        >保存权限</el-button&ndash;&gt;-->
-      <!--                    &lt;!&ndash;                    >&ndash;&gt;-->
-
-      <!--                    <div>-->
-      <!--                        <el-select v-model="addAdmin.doubleCreationClass">-->
-      <!--                            <el-option-->
-      <!--                                v-for="i in doubleCreation"-->
-      <!--                                :key="i.value"-->
-      <!--                                :value="i.value"-->
-      <!--                                >{{ i.text }}</el-option-->
-      <!--                            >-->
-      <!--                        </el-select>-->
-      <!--                    </div>-->
-      <!--                </div>-->
-      <!--                <p-->
-      <!--                    v-show="authorizeData.currentUser === ''"-->
-      <!--                    style="-->
-      <!--                        position: absolute;-->
-      <!--                        top: 50%;-->
-      <!--                        left: 50%;-->
-      <!--                        transform: translate(-50%, -50%);-->
-      <!--                    "-->
-      <!--                >-->
-      <!--                    暂无数据-->
-      <!--                </p>-->
-      <!--            </el-col>-->
+     
     </el-row>
-    <!--        <pagination-->
-    <!--            :total="total"-->
-    <!--            :page.sync="listQuery.page"-->
-    <!--            :limit.sync="listQuery.limit"-->
-    <!--            :page-sizes="[10, 20, 50, 100, 150, 200]"-->
-    <!--            @pagination="getTable"-->
-    <!--            style="margin: 0; padding: 5px 0 0 0;"-->
-    <!--        />-->
   </div>
 </template>
 
 <script>
 import college from "@/json/college.json";
 import doubleCreationClass from "@/json/DoubleCreation.json";
-import userData from "@/store/modules/user2";
 import Pagination from "@/components/Pagination/index";
 import {
   adminDelete,

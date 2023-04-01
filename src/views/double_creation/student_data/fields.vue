@@ -10,32 +10,10 @@
           :disabled="disabled"
         >
           <el-row style="width: 100%; justify-content: space-between">
-            <!-- <el-form-item
-                            label="姓名"
-                            prop="name"
-                            style="width: 50%"
-                        >
-                            <el-input v-model="form.name" style="width: 100%" />
-                        </el-form-item>
-
-                        <el-form-item
-                            label="性别"
-                            prop="gender"
-                            style="width: 50%"
-                        >
-                            <el-select
-                                v-model="form.gender"
-                                style="width: 100%"
-                                clearable
-                            >
-                                <el-option :value="'男'"> 男 </el-option>
-                                <el-option :value="'女'"> 女</el-option>
-                            </el-select>
-                        </el-form-item> -->
-
+     
             <el-form-item v-for="i in fields" :key="i.id">
-              <el-input v-model="i.fieldChName" clearable></el-input>
-              <el-input v-model="i.fieldEngName" clearable></el-input>
+              <el-input v-model="i.fieldChName" ></el-input>
+              <el-input v-model="i.fieldEngName"></el-input>
               <el-select
                 v-model="i.fieldAttribute"
                 clearable
@@ -45,15 +23,6 @@
                 <el-option :value="'String'"> 字符串 </el-option>
                 <el-option :value="'Date'"> 日期 </el-option>
               </el-select>
-
-              <!-- <el-switch
-                v-model="i.fieldIsView"
-                active-color="#13ce66"
-                inactive-color="#ff4949"
-                active-text="显示"
-                inactive-text="隐藏"
-              >
-              </el-switch> -->
               <el-button
                 :size="'mini'"
                 type="danger"
@@ -97,16 +66,6 @@
               <el-option :value="'String'"> 字符串 </el-option>
               <el-option :value="'Date'"> 日期 </el-option>
             </el-select>
-            <!-- <el-switch
-              v-model="i.fieldIsView"
-              active-color="#13ce66"
-              inactive-color="#ff4949"
-              active-text="显示"
-              inactive-text="隐藏"
-              :active-value="true"
-              :inactive-value="false"
-            >
-            </el-switch> -->
             <el-button
               type="success"
               icon="el-icon-check"
@@ -122,12 +81,7 @@
           @click="addFieldButton"
           >添加字段</el-button
         >
-        
         <em style="color:red">【修改操作】编辑表单后,点击修改即可</em>
-        <!-- <el-row type="flex" style="justify-content: center">
-          <el-button type="primary" @click="onSubmit"> 提交</el-button>
-          <el-button type="warning" @click="resetForm"> 重置</el-button>
-        </el-row> -->
       </el-col>
     </el-row>
   </div>
@@ -138,13 +92,11 @@ import college from "@/json/college.json";
 import doubleCreation from "@/json/DoubleCreation.json";
 import { addCreationStudent } from "@/api/double_creation_class/double_creation/studentData";
 import { getField, addField, deleteField, updateField } from "@/api/dontai";
-import { getToken } from "@/utils/auth";
 
 export default {
   data() {
     return {
       disabled: false,
-      token: { token: getToken() },
       form: {},
       fields: [],
 
@@ -209,41 +161,6 @@ export default {
         this.getField();
       });
     },
-
-    // onSubmit() {
-    //   // console.log(this.form);
-    //   this.$refs.form.validate((valid) => {
-    //     if (valid) {
-    //       //   let form = {};
-    //       //   form.className = this.form.doubleCreationClass;
-
-    //       //   form["stuField"] = this.form;
-    //       //   delete form.stuField.doubleCreationClass;
-
-    //       console.log(this.form,"修改");
-    //       updateField()
-    //         .then((res) => {
-    //           this.$message.success(res.msg);
-
-    //           // 清理绑定数据
-    //           this.$refs.form.resetFields();
-    //         })
-    //         .catch((err) => {
-    //           this.$message.error("出错！");
-    //           console.log(err);
-    //         });
-    //     }
-    //   });
-    // },
-
-    // // 重置按钮
-    // resetForm() {
-    //   this.$refs.form.resetFields();
-    //   this.$message({
-    //     message: "重置成功!",
-    //     type: "warning",
-    //   });
-    // },
   },
   computed: {},
   watch: {},

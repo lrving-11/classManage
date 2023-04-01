@@ -34,7 +34,7 @@
       </el-table-column>
       <el-table-column prop="comHonorLevel" label="荣誉等级" width="">
       </el-table-column>
-      <el-table-column prop="comRemark" label="荣誉证书(点击查看大图)" width="">
+      <el-table-column prop="comRemark" label="荣誉证书(点击查看大图)" width="150">
         <template slot-scope="{ row }">
           <el-image
             v-if="row.comRemark"
@@ -48,7 +48,7 @@
       <el-table-column
         label="操作"
         align="center"
-        width="200"
+        width="150"
         class-name="small-padding fixed-width"
         fixed="right"
       >
@@ -230,7 +230,6 @@ import {
   uploadContestWinners,
 } from "@/api/double_creation_class/double_creation/contestWinners";
 import Pagination from "@/components/Pagination";
-import { getDoubleCreationClass, getToken } from "@/utils/auth";
 export default {
   components: { Pagination },
   created() {
@@ -242,7 +241,7 @@ export default {
       srcList: [],
       fileList: [],
       uploadFile: undefined,
-      className: getDoubleCreationClass(),
+      className:"superAdmin",
       doubleCreation: doubleCreation,
       updataIndex: 0,
       status: "",

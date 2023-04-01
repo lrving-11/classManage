@@ -43,12 +43,12 @@
       <el-table-column
         prop="classIntroduceImage"
         label="班级图片(点击查看大图)"
-        width=""
+        width="150px"
       >
         <template slot-scope="{ row }">
           <el-image
             v-if="row.classIntroduceImage"
-            style="width: 100px; height: 100px"
+            style="width: 140px; height: 140px"
             :src="row.classIntroduceImage"
             :preview-src-list="srcList"
           ></el-image>
@@ -58,7 +58,7 @@
       <el-table-column
         label="操作"
         align="center"
-        width="200"
+        width="150"
         class-name="small-padding fixed-width"
         fixed="right"
       >
@@ -300,11 +300,7 @@ import {
   createdClassUpload,
 } from "@/api/double_creation_class/double_creation/introduce";
 import Pagination from "@/components/Pagination";
-import {
-  getDoubleCreationClass,
-  getToken,
-  getAdminUserName,
-} from "@/utils/auth";
+import { getUserInfo } from "@/utils/auth";
 export default {
   components: { Pagination },
   created() {
@@ -314,10 +310,10 @@ export default {
   data() {
     return {
       srcList: [],
-      adminUserName: getAdminUserName(),
+      adminUserName: getUserInfo().username,
       fileList: [],
       uploadFile: undefined,
-      className: getDoubleCreationClass(),
+      className: getUserInfo().doubleCreationClass,
       //
       doubleCreation: doubleCreation,
       college: college,
@@ -397,7 +393,7 @@ export default {
 
     findAllIntroduceInfo() {
       // 查询信息
-      findAllIntroduce(1, 10000, this.className)
+      findAllIntroduce(1, 10000, "superAdmin")
         .then((res) => {
           // console.log(res.data, "查询就业信息");
           this.list = res.data;
@@ -506,6 +502,12 @@ export default {
           addIntroduce(this.form)
             .then((res) => {
               console.log(res);
+              this.$notify({
+                title: "成功",
+                message: "添加成功",
+                type: "success",
+                duration: 1500,
+              });
               this.findAllIntroduceInfo();
             })
             .catch((err) => {

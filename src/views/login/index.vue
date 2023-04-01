@@ -88,12 +88,12 @@ export default {
       // 超级管理员 2
       isAdminLogin: 0,
       loginForm: {
-        // username: "superAdmin",
-        // password: "superAdmin",
+        username: "superAdmin",
+        password: "superAdmin",
         // username: "admin",
         // password: "admin",
-        username: "zjx6",
-        password: "123456",
+        // username: "zjx6",
+        // password: "123456",
       },
       loginRules: {
         username: [

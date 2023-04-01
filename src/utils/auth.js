@@ -11,36 +11,6 @@ export function setToken(token) {
 export function removeToken() {
   return Cookies.remove(TokenKey);
 }
-// // 管理员双创班身份
-// export function setDoubleCreationClass(className) {
-//   Cookies.set("doubleCreationClass", className);
-// }
-// export function getDoubleCreationClass() {
-//   return Cookies.get("doubleCreationClass");
-// }
-// export function removeDoubleCreationClass() {
-//   return Cookies.remove("doubleCreationClass");
-// }
-// 管理员学院身份
-// export function setUserCollege(userCollege) {
-//   Cookies.set("userCollege", userCollege);
-// }
-// export function getUserCollege() {
-//   return Cookies.get("userCollege");
-// }
-// export function removeUserCollege() {
-//   return Cookies.remove("userCollege");
-// }
-// 超级管理员
-// export function getAdminUserName() {
-//   return Cookies.get("adminUserName");
-// }
-// export function setAdminUserName(adminUserName) {
-//   return Cookies.set("adminUserName", adminUserName);
-// }
-// export function removeAdminUserName() {
-//   return Cookies.remove("adminUserName");
-// }
 
 export function setUserInfo(
   username,

@@ -8,7 +8,6 @@ import {
   removeUserInfo,
 } from "@/utils/auth";
 import router, { resetRouter } from "@/router";
-import user2 from "@/store/modules/user2";
 
 const getDefaultState = () => {
   return {
