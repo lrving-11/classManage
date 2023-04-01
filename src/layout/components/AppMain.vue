@@ -1,20 +1,25 @@
 <template>
   <section class="app-main">
     <transition name="fade-transform" mode="out-in">
-      <router-view :key="key" />
+      <keep-alive  :include="['indexStu']">
+        <router-view :key="key" />
+      </keep-alive>
     </transition>
   </section>
 </template>
 
 <script>
 export default {
-  name: 'AppMain',
+  name: "AppMain",
   computed: {
     key() {
-      return this.$route.path
-    }
-  }
-}
+      return this.$route.fullPath;
+    },
+  },
+  created() {
+    console.log('appmain创建');
+  },
+};
 </script>
 
 <style scoped>
@@ -25,7 +30,7 @@ export default {
   position: relative;
   overflow: hidden;
 }
-.fixed-header+.app-main {
+.fixed-header + .app-main {
   padding-top: 50px;
 }
 </style>

@@ -114,6 +114,7 @@ import { getUserInfo, getToken } from "@/utils/auth";
 import { getFile } from "@/utils/getFile";
 
 export default {
+  name:'stuTable',
   components: {
     Pagination,
     UploadExcelComponent,
@@ -172,12 +173,16 @@ export default {
       this.listQuery.limit = Number(this.$route.params.limit);
     }
     this.getField();
+    console.log('table创建');
+  },
+  beforeDestroy() {
+    console.log('table销毁');
   },
   methods: {
     getField() {
       getField("studentInfo")
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           this.fields = res.data;
           for (let i = 0; i < res.data.length; i++) {
             // this.$set(this.form, res.data[i].fieldEngName, "");
@@ -197,7 +202,7 @@ export default {
       )
         .then((res) => {
           // 所有数据都保存在list中
-          console.log(res.data,"res.data");
+          // console.log(res.data,"res.data");
           this.list = res.data;
           // this.tableData = res.data.;
           // 分页显示
@@ -216,7 +221,7 @@ export default {
             tableData[i].id = res.data[i].stuId;
           }
           this.tableData = tableData;
-          console.log(this.tableData,"tabledata");
+          // console.log(this.tableData,"tabledata");
         })
         .catch((err) => {
           this.$message.error("获取信息出错！" + err);

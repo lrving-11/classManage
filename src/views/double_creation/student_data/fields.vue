@@ -10,9 +10,8 @@
           :disabled="disabled"
         >
           <el-row style="width: 100%; justify-content: space-between">
-     
             <el-form-item v-for="i in fields" :key="i.id">
-              <el-input v-model="i.fieldChName" ></el-input>
+              <el-input v-model="i.fieldChName"></el-input>
               <el-input v-model="i.fieldEngName"></el-input>
               <el-select
                 v-model="i.fieldAttribute"
@@ -36,7 +35,8 @@
                 icon="el-icon-delete"
                 circle
                 @click="editFiled(i)"
-              >修改</el-button>
+                >修改</el-button
+              >
             </el-form-item>
           </el-row>
         </el-form>
@@ -81,7 +81,7 @@
           @click="addFieldButton"
           >添加字段</el-button
         >
-        <em style="color:red">【修改操作】编辑表单后,点击修改即可</em>
+        <em style="color: red">【修改操作】编辑表单后,点击修改即可</em>
       </el-col>
     </el-row>
   </div>
@@ -94,6 +94,8 @@ import { addCreationStudent } from "@/api/double_creation_class/double_creation/
 import { getField, addField, deleteField, updateField } from "@/api/dontai";
 
 export default {
+  name:'stuField',
+
   data() {
     return {
       disabled: false,
@@ -110,13 +112,17 @@ export default {
   },
   created() {
     this.getField();
+    console.log("fields创建");
+  },
+  beforeDestroy() {
+    console.log("fields销毁");
   },
   mounted() {},
   methods: {
     getField() {
       getField("studentInfo")
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           this.fields = res.data;
           for (let i = 0; i < res.data.length; i++) {
             // this.form[res.data[i].fieldEngName] = ""

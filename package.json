@@ -1,8 +1,8 @@
 {
-  "name": "vue-admin-template",
+  "name": "classmanage",
   "version": "4.4.0",
   "description": "A vue admin template with Element UI & axios & iconfont & permission control & lint",
-  "author": "Pan <panfree23@gmail.com>",
+  "author": "",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build:prod": "vue-cli-service build",

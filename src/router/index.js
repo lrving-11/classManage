@@ -4,6 +4,9 @@ import { getUserInfo } from "@/utils/auth";
 
 Vue.use(Router);
 
+// import index from "@/views/double_creation/student_data/index";
+// component: () => import("@/views/double_creation/student_data/index"),
+
 /* Layout */
 import Layout from "@/layout";
 /**
@@ -596,8 +599,7 @@ export const SuperAdminMap = [
     children: [
       {
         path: "admin",
-        component: () =>
-          import("@/views/double_creation_superAdmin/admin"),
+        component: () => import("@/views/double_creation_superAdmin/admin"),
         meta: {
           title: "管理员权限控制",
         },
@@ -623,10 +625,10 @@ const createRouter = () =>
 
 const router = createRouter();
 /**
- * 
+ *
  *  动态路由
  *  为路由器添加方法，实现动态路由，当用户权限变更时，运行
- *  
+ *
  */
 router.dynamicRouter = function dynamicRouter() {
   // 创建一个新路由，然后按权限往里面添加

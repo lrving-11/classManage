@@ -115,10 +115,10 @@ import UploadExcelComponent from "@/components/UploadExcel/index";
 //     editStudent,
 //     deleteCertifiedStu,
 // } from "@/api/certified";
-import {
-  translateChinese,
-  translatevariable,
-} from "@/vendor/tHeaderConversion";
+// import {
+//   translateChinese,
+//   translatevariable,
+// } from "@/vendor/tHeaderConversion";
 import {
   deleteCreationGraduate,
   findCreationGraduate,
@@ -376,12 +376,12 @@ export default {
       );
     },
 
-    handleSuccess({ results, header }) {
-      // console.log(results);
-      this.tableData = translateChinese(results, "学生");
-      // console.log(this.tableData);
-      // this.tableHeader = header;
-    },
+    // handleSuccess({ results, header }) {
+    //   // console.log(results);
+    //   this.tableData = translateChinese(results, "学生");
+    //   // console.log(this.tableData);
+    //   // this.tableHeader = header;
+    // },
     //  搜索
     searchMethod(page = 1) {
       findByNameCreationGraduate(

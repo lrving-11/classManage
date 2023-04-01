@@ -49,6 +49,7 @@ import { getField } from "@/api/dontai";
 import { getUserInfo, getToken } from "@/utils/auth";
 
 export default {
+  name:'stuAdd',
   data() {
     return {
       disabled: false,
@@ -63,12 +64,16 @@ export default {
   },
   created() {
     this.getField();
+    console.log("add创建");
+  },
+  beforeDestroy() {
+    console.log("add销毁");
   },
   methods: {
     getField() {
       getField("studentInfo")
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           this.fields = res.data;
           for (let i = 0; i < res.data.length; i++) {
             this.$set(this.form, res.data[i].fieldEngName, "");

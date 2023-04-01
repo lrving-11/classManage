@@ -46,9 +46,6 @@ const actions = {
         .then((res) => {
           let userData=res.data;
           console.log("普通用户登录",userData);
-          // 关闭管理员权限,动态路由
-          user2.commit("SET_ISSUPERADMIN", false);
-          user2.commit("SET_ISADMIN", false);
           // 更新路由
           router.dynamicRouter();
           //存在store
@@ -83,9 +80,7 @@ const actions = {
         .then((res) => {
           let userData=res.data;
           console.log("管理登录",userData);
-          // 给与管理员权限
-          user2.commit("SET_ISADMIN", true);
-          user2.commit("SET_ISSUPERADMIN", false);
+
           // 更新路由
           router.dynamicRouter();
           //存在store
@@ -123,8 +118,7 @@ const actions = {
           // 给与管理员权限
           console.log("超管登录",userData);
           if (userData.adminIsSuperAdmin === true) {
-            user2.commit("SET_ISSUPERADMIN", true);
-            user2.commit("SET_ISADMIN", true);
+
           }
           // 更新路由
           router.dynamicRouter();
