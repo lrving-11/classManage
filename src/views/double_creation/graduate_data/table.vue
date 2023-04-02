@@ -206,6 +206,12 @@ export default {
       this.listQuery.limit = Number(this.$route.params.limit);
     }
     this.getField();
+    console.log("t创建");
+
+  },
+ 
+  beforeDestroy() {
+    console.log("t销毁");
   },
   mounted() {
     // this.getTable();

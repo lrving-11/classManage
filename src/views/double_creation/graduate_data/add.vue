@@ -64,7 +64,10 @@ export default {
   },
   created() {
     this.getField();
-    
+    console.log("add创建");
+  },
+  beforeDestroy() {
+    console.log("add销毁");
   },
   methods: {
     getField() {

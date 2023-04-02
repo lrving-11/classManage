@@ -135,6 +135,10 @@ export default {
   },
   created() {
     this.getField();
+    console.log("f创建");
+  },
+  beforeDestroy() {
+    console.log("f销毁");
   },
   mounted() {},
   methods: {

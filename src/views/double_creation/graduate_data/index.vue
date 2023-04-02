@@ -35,6 +35,22 @@ export default {
       this.activeName = "three";
     }
   },
+  activated() {
+      // 根据路由来跳转和高亮标签页
+    if (this.$route.fullPath === "/double-creation/graduate-data-2") {
+      this.$router.push("/double-creation/graduate-data-2/index/1&10");
+      this.activeName = "first";
+    } else if (this.$route.meta.title === "内容列表") {
+      this.activeName = "first";
+    } else if (this.$route.meta.title === "信息录入") {
+      this.activeName = "second";
+    } else if (this.$route.meta.title === "动态字段") {
+      this.activeName = "three";
+    }
+  },
+  
+ 
+
   methods: {
     handleClick(tab, e) {
       if (tab.label === "内容列表") {
