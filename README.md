@@ -18,3 +18,5 @@
 - vue-router
 - vuex
 - axios
+
+![image](https://user-images.githubusercontent.com/80662302/229691346-512daf6e-6ee8-4220-b3ea-225b99c09f72.png)
