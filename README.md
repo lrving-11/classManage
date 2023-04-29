@@ -20,6 +20,4 @@
 - axios
 
 
-![image](https://user-images.githubusercontent.com/80662302/229692899-a2af9af7-f3d7-4e0e-b513-6f78468f916f.png)
-
 
